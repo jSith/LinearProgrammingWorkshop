@@ -1,0 +1,48 @@
+---
+title: "LPSolveExample"
+output: html_document
+---
+
+```{r setup, echo=TRUE}
+#install.packages("lpSolve")
+library("lpSolve")
+```
+  
+  
+```{r lpsolve, echo=TRUE}
+# Set up problem: maximize
+# x1 + 9 x2 + x3 subject to
+# x1 + 2 x2 + 3 x3 <= 9
+# 3 x1 + 2 x2 + 2 x3 <= 15
+
+
+# First, we define our objective function. We pass in the coefficients as a vector to f.obj
+f.obj <- c(1, 9, 1)
+
+# Next, we define our constraints. We pass in a matrix of the coefficients to f.con
+f.con <- matrix (c(1, 2, 3, 3, 2, 2), nrow=2, byrow=TRUE)
+
+# Now we're telling it that the direction of the constraints is <=
+f.dir <- c("<=", "<=")
+
+# Lastly, we define the right hand side of the equations (the values that the constraints are tied to)
+f.rhs <- c(9, 15)
+
+
+# Now run.
+
+result <- lp("max", f.obj, f.con, f.dir, f.rhs)
+result
+
+# This tells us the optimal value of the objective function
+# But it does not tell us by default what values of x give it that value! 
+result$solution
+
+# What if we want the sensitivities? 
+result$sens.coef.from
+
+result$sens.coef.to
+
+result$duals
+```
+
