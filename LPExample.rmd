@@ -33,9 +33,11 @@ f.rhs <- c(9, 15)
 # Now run.
 
 result <- lp("max", f.obj, f.con, f.dir, f.rhs)
-result
+
 
 # This tells us the optimal value of the objective function
+result$obj.val
+
 # But it does not tell us by default what values of x give it that value! 
 result$solution
 
