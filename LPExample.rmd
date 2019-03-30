@@ -5,7 +5,9 @@ output: html_document
 
 ```{r setup, echo=TRUE}
 #install.packages("lpSolve")
+install.packages("plot3D")
 library("lpSolve")
+library("plot3D")
 ```
   
   
@@ -14,7 +16,6 @@ library("lpSolve")
 # x1 + 9 x2 + x3 subject to
 # x1 + 2 x2 + 3 x3 <= 9
 # 3 x1 + 2 x2 + 2 x3 <= 15
-
 
 # First, we define our objective function. We pass in the coefficients as a vector to f.obj
 f.obj <- c(1, 9, 1)
@@ -44,5 +45,36 @@ result$sens.coef.from
 result$sens.coef.to
 
 result$duals
+
+
+
+```
+
+```{r}
+#Identify objective function
+#C = 6x + 2y
+#Identify constraints
+#10x + 5y ??? 60 
+#8x + 2y ??? 40
+#y ??? 5
+
+# First, we define our objective function. We pass in the coefficients as a vector to f.obj
+f.obj <- c(6, 2)
+
+# Next, we define our constraints. We pass in a matrix of the coefficients to f.con
+f.con <- matrix (c(10, 5, 8, 2, 0, 1), nrow=3, byrow=TRUE)
+
+# Now we're telling it that the direction of the constraints is <=
+f.dir <- c("<=", "<=", "<=")
+
+# Lastly, we define the right hand side of the equations (the values that the constraints are tied to)
+f.rhs <- c(60, 40, 5)
+
+
+# Now run.
+result <- lp("max", f.obj, f.con, f.dir, f.rhs)
+result$solution
+
+
 ```
 
