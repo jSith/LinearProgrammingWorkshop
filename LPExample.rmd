@@ -58,6 +58,31 @@ result$duals
 #8x + 2y <= 40
 #y <= 5
 
+time_constraint <- function(x) 12 - 2*x
+space_constraint <- function(x) 20 - 4*x
+small_stick_constraint <- function(x) 5
+
+x <- 0:10
+xlims <- c(0, 6)
+ylims <- c(0, 20)
+
+#plot(x, time_constraint(x), type="l", xlim=xlims, ylim=ylims, ylab="Y (Small Sticks)", xlab="X (Big Sticks)")
+#polygon(x=c(0, 0, 6), y=c(0, 12, 0), col="lightblue")
+#lines(x, space_constraint(x))
+#polygon(x=c(0, 0, 4), y=c(12, 20, 4), col="khaki")
+#polygon(x=c(0, 0, 4, 5), y=c(0, 12, 4, 0), col="lightgreen")
+#lines(x, rep(small_stick_constraint(x), times=11))
+#polygon(x=c(0, 0, 3.5, 4, 5), y=c(0, 5, 5, 4, 0), col="darkgreen")
+#polygon(x=c(4, 5, 6), y=c(4, 0, 0), col="darkcyan")
+#polygon(x=c(3.5, 3.75, 4), y=c(5, 5, 4), col="goldenrod1")
+#polygon(x=c(3.75, 4, 6, 6), y=c(5, 4, 0, 5), col="gray")
+
+plot(0, 0, xlim=c(0,6), ylim=c(0,6), ylab="Y (Small Sticks)", xlab="X (Big Sticks)")
+polygon(x=c(0, 0, 3.5, 4, 5), y=c(0, 5, 5, 4, 0), col="darkgreen")
+points(0, 0, pch=19, col="black")
+points(5, 0, pch=19, col="black")
+points(4, 4, pch=19, col="red")
+
 # First, we define our objective function. We pass in the coefficients as a vector to f.obj
 f.obj <- c(6, 2)
 
@@ -74,7 +99,6 @@ f.rhs <- c(60, 40, 5)
 # Now run.
 result <- lp("max", f.obj, f.con, f.dir, f.rhs)
 result$solution
-
 ```
 
 ```{r}
