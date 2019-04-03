@@ -4,10 +4,8 @@ output: html_document
 ---
 
 ```{r setup, echo=TRUE}
-#install.packages("lpSolve")
-install.packages("plot3D")
+# install.packages("lpSolve")
 library("lpSolve")
-library("plot3D")
 ```
   
   
@@ -56,9 +54,9 @@ result$duals
 #Identify objective function
 #C = 6x + 2y
 #Identify constraints
-#10x + 5y ??? 60 
-#8x + 2y ??? 40
-#y ??? 5
+#10x + 5y <= 60 
+#8x + 2y <= 40
+#y <= 5
 
 # First, we define our objective function. We pass in the coefficients as a vector to f.obj
 f.obj <- c(6, 2)
@@ -77,6 +75,57 @@ f.rhs <- c(60, 40, 5)
 result <- lp("max", f.obj, f.con, f.dir, f.rhs)
 result$solution
 
+```
+
+```{r}
+#Identify objective function
+#C = 3x + 2y
+#Identify constraints
+#2x + y <= 6
+#x + 2y <= 6
+
+# Let's graph it! 
+constraint_one <- function(x) 6 - 2*x
+constraint_two <- function(x) 3 - 0.5*x
+x <- 0:10
+constraint_one_points <- constraint_one(x)
+constraint_two_points <- constraint_two(x)
+limits <- c(0, 6)
+
+plot(0, 0, xlim=limits, ylim=limits, type="l")
+lines(x, constraint_one_points)
+lines(x, constraint_two_points)
+polygon(x=c(0, 0, 3), y=c(0, 6, 0), col="lightblue")
+polygon(x=c(0, 0, 6), y=c(0, 3, 0), col="khaki")
+polygon(x=c(0, 0, 2, 3), y=c(0, 3, 2, 0), col="lightgreen")
+
+# We start at the origin, the basic feasible solution
+points(0, 0, pch=19, col="cyan")
+
+# We pivot to the next feasible solution
+points(3, 0, pch=19)
+
+# We pivot to the optimal feasible solution
+points(2, 2, pch=19, col="red")
+
+# Define our objective function. We pass in the coefficients as a vector to f.obj
+f.obj <- c(3, 2)
+
+# Next, we define our constraints. We pass in a matrix of the coefficients to f.con
+f.con <- matrix (c(2, 1, 1, 2), nrow=2, byrow=TRUE)
+
+# Now we're telling it that the direction of the constraints is <=
+f.dir <- c("<=", "<=")
+
+# Lastly, we define the right hand side of the equations (the values that the constraints are tied to)
+f.rhs <- c(6, 6)
+
+
+# Now run.
+result <- lp("max", f.obj, f.con, f.dir, f.rhs)
+result
+result$solution
 
 ```
+
 
