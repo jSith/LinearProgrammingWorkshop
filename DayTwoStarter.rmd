@@ -1,0 +1,75 @@
+---
+title: "Linear Programming - Day Two Starter"
+author: "A Beautiful Individual <3"
+date: "April 18, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setup
+
+## Install and Load Packages
+```{r}
+pkgLoad <- function(x)
+  {
+    if (!require(x,character.only = TRUE))
+    {
+      install.packages(x,dep=TRUE)
+        if(!require(x,character.only = TRUE)) stop("Package not found")
+    }
+  }
+
+pkgLoad('lpSolve')
+pkgLoad('lpSolveAPI')
+```
+
+# Apple Code
+
+## Create our LP Model
+```{r}
+```
+
+## Add Constraints
+```{r}
+```
+
+## Add Objective Function and Max
+```{r}
+```
+
+## Solve and View Model
+```{r}
+```
+
+## View Variables, Sensitivity, and Objective
+```{r}
+```
+
+# Raikes Admission Knapsack
+## Create our LP Model
+```{r}
+```
+
+## Add Constraints
+```{r}
+```
+
+## Add Objective Function and Max
+```{r}
+```
+
+## Update Type to Binary
+```{r}
+```
+
+## Solve and View Model
+```{r}
+```
+
+## View Variables, Sensitivity, and Objective
+```{r}
+```
+
